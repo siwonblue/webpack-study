@@ -1,4 +1,4 @@
-맛있는 김치를 담구기 위한 노력
+# 신선한 김치를 담구기 위한 노력
 
 ## NPM은 무엇인가?
 
@@ -45,7 +45,11 @@
 
 위의 이미지를 보신적이 있나요? 아이고 머리야! 이럴 경우, multiply.js 보다 sum.js보다 먼저 삽입하거나 index.js를 두 js보다 먼저 삽입하면 오류가 발생합니다. 간단한 예제이지만, 웹 앱의 복잡도가 올라가면서 수많은 의존성의 순서를 결정하는 것조차 버거운 일이 될 수 있습니다. 또한 자바스크립트의 전역 변수 관리도 문제가 됩니다. 
 
+### 모듈에 관하여
+
 과거의 웹 개발자들은 이 문제를 해결하기 위해 각 코드를 함수로 묶어서 관리하는 방식을 사용했습니다. let의 등장 이전에 var는 함수 스코프를 가지고 있었기 때문입니다. 이후 필요한 함수와 변수를 return값으로 반환됩니다. 그러나, 특정한 파일에서 함수를 불러올 수 없고 의존성 관리를 개발자가 직접 해야한다는 점에서 한계가 있었습니다.
+
+![image](https://user-images.githubusercontent.com/75231844/170656809-a5ed00d2-a7eb-450c-b680-b0c0844eebb5.png)
 
 이러한 문제를 극복하고 서버사이드 JS 개발에서 활용하기 위해 CommonJS를 대표적으로 모듈의 개념이 발생했습니다. 모듈은 require, exports 두 구문으로 관리됩니다. 우선, require 안에는 모듈의 아이디, 즉 node.js 에서 node_modules의 경로가 인자로 들어갑니다. exports는 인자로 받은 요소를 public 요소로 반환합니다. 따라서 원하는 모듈을 원하는 코드에 삽입할 수 있고, 모듈은 필요한 순서대로 앱에 통합되므로 의존성 관리가 편리합니다. 
 
@@ -55,7 +59,11 @@
 
 ES2015에서 두 모듈의 개념은 하나로 합쳐졌습니다. 정적 analyzer가 import, export 구문을 분석하며 의존성 트리를 그린 뒤 런타임에서 최적의 로딩 전략을 고르도록 합니다. 따라서 비동기적인 로딩이 가능하다면 사용할 수 있습니다. 다만, ES2015의 import는 정적 선언이므로 빌드시 모든 모듈을 로드해야 합니다. 이러한 문제는 ES2020에서 동적 import가 추가되면서 개선되었습니다. [관련 링크](https://dmitripavlutin.com/ecmascript-modules-dynamic-import/#:~:text=To%20load%20dynamically%20a%20module,components%20of%20the%20imported%20module.)
 
-나아가 웹팩은 필요한 모듈만을 올바른 스코프 내에서 사용하며 더 개선된 접근방법을 사용합니다. 그렇다면 어떤 식으로 웹팩은 이런 마법을 부리는 걸까요?
+## 어떻게 한거야?
+
+![image](https://user-images.githubusercontent.com/75231844/170657009-0e1fbcbc-d467-42fe-a20d-fd98c995f887.png)
+
+나아가 웹팩은 필요한 모듈만을 올바른 스코프 내에서 사용하며 더 개선된 접근방법을 사용합니다. 웹팩의 동적 import는 ES2020 이전부터 지원되어 왔습니다. [관련 링크](https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234) 그렇다면 어떤 식으로 웹팩은 이런 마법을 부리는 걸까요?
 
 ```
 var multiply = require('./multiply');
@@ -77,7 +85,9 @@ function (module, exports, __webpack_require__) {
 
 웹팩은 이런 식으로 각 파일을 하나의 함수로 만들어 이를 bundle.js 내 리스트로 관리하고 있습니다. 필요한 모듈이 발생하면 해당 모듈을 ``__webpack_require_(index);`` 함수를 통해 해당 모듈의 인덱스를 호출해 로드하고 있네요. 추가로, 모듈 캐싱을 통해 호출에 앞서 이미 호출된 적이 있는지 확인하는 작업도 하고 있습니다. 웹팩의 알뜰살뜰함에 시어머니도 놀라실 것 같아요, 에구머니나!
 
-이뿐만 아니라 모듈은 다수의 분리된 파일을 하나의 파일로 처리한다는 장점을 가지고 있습니다. 앞서 bundle.js는 자바스크립트 모듈들을 하나의 파일로 묶어서 관리하고 있지요. 또는 다양한 설정을 통해 번들링되는 방식을 조절할 수도 있습니다. 예를 들어 작은 이미지를 inlined image로 인코딩해 bundle.js에 묶어서 배포하거나 코드를 난독화 할수도 있습니다. 기대가 되네요.
+이뿐만 아니라 모듈은 다수의 분리된 파일을 하나의 파일로 처리한다는 장점을 가지고 있습니다. 앞서 bundle.js는 자바스크립트 모듈들을 하나의 파일로 묶어서 관리하고 있지요. 또는 다양한 설정을 통해 번들링되는 방식을 조절할 수도 있습니다. 예를 들어 작은 이미지를 inlined image로 인코딩해 bundle.js에 묶어서 배포하거나 코드를 난독화 할수도 있습니다. 앞으로 배울 웹팩이 기대가 되네요.
+
+*dynamic loading에는 더 많은 이야기들이 있는 것 같지만...다음에 할래요
 
 ### 출처
 https://blog.ag-grid.com/webpack-tutorial-understanding-how-it-works/#introduction-to-webpack
