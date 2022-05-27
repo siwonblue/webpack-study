@@ -53,7 +53,9 @@
 
 다만 CommonJS의 개념은 비동기 환경을 전제하고 있으므로 브라우저에서는 부적합합니다. 따라서 비동기적인 모듈 로드를 위해 AMD(Asynchronous Module Definition)가 나타났습니다. AMD 로더는 모듈의 의존성 그래프를 그린 다음 의존성이 있는 모듈을 동기적으로 로드하면서 서로 의존하지 않는 모듈은 동시에 로드합니다. 따라서 모듈을 작은 단위로 세분화해도 로드 시간이 길지 않고, 의존성 관리가 완전히 통합되었습니다.
 
-웹팩은 필요한 모듈을 올바른 스코프 내에서 사용하며 이러한 문제들을 극복합니다. 그렇다면 어떤 식으로 웹팩은 이런 마법을 부리는 걸까요?
+ES2015에서 두 모듈의 개념은 하나로 합쳐졌습니다. 정적 analyzer가 import, export 구문을 분석하며 의존성 트리를 그린 뒤 런타임에서 최적의 로딩 전략을 고르도록 합니다. 따라서 비동기적인 로딩이 가능하다면 사용할 수 있습니다. 다만, ES2015의 import는 정적 선언이므로 빌드시 모든 모듈을 로드해야 합니다. 이러한 문제는 ES2020에서 동적 import가 추가되면서 개선되었습니다. [관련 링크](https://dmitripavlutin.com/ecmascript-modules-dynamic-import/#:~:text=To%20load%20dynamically%20a%20module,components%20of%20the%20imported%20module.)
+
+나아가 웹팩은 필요한 모듈만을 올바른 스코프 내에서 사용하며 더 개선된 접근방법을 사용합니다. 그렇다면 어떤 식으로 웹팩은 이런 마법을 부리는 걸까요?
 
 ```
 var multiply = require('./multiply');
@@ -80,3 +82,4 @@ function (module, exports, __webpack_require__) {
 ### 출처
 https://blog.ag-grid.com/webpack-tutorial-understanding-how-it-works/#introduction-to-webpack
 https://jeonghwan-kim.github.io/series/2019/12/10/frontend-dev-env-webpack-basic.html
+https://auth0.com/blog/javascript-module-systems-showdown/
