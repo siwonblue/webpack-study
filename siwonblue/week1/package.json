@@ -1,0 +1,12 @@
+{
+  "name": "week1",
+  "version": "1.0.0",
+  "description": "### 모듈 module - 특정 기능을 가진 프로그래밍 단위",
+  "main": "index.js",
+  "scripts": {
+    "siwon" : "echo webpack study hahaha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
