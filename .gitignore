@@ -1,2 +1,5 @@
 .idea
 .DS_Store
+
+# daeheon gitignore
+daeheon/week2/node_modules/
