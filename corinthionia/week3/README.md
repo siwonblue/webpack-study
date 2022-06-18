@@ -6,8 +6,6 @@
 
 ### 특징
 
-명령어
-
 ```json
 "scripts": {
   "dev": "webpack serve",
@@ -16,6 +14,8 @@
 ```
 
 웹팩 데브 서버를 실행하여 빌드한 결과물은 메모리에 저장되고 따로 파일로 생성되지는 않는다. 따라서 개발 완료 후 명령어를 이용해 파일로 생성해야 한다.
+
+<br/>
 
 ## Proxy 설정
 
@@ -57,8 +57,6 @@ module.exports = {
 배포용으로 빌드한 파일과 원본 파일을 서로 연결시켜 주는 기능이다.  
 서버에 배포 시 웹 자원을 압축하는데, 이 파일에서 에러가 난다면 소스맵을 이용하여 원본 소스 파일을 확인할 수 있다.
 
-### 설정
-
 ```javascript
 // webpack.config.js
 module.exports = {
@@ -73,9 +71,7 @@ module.exports = {
 
 ## Mode Config
 
-### 웹핵 실행 모드 - mode
-
-웹팩의 실행 모드 설정
+### 웹핵 실행 모드 - **mode**
 
 ```javascript
 module.exports = {
@@ -89,14 +85,14 @@ module.exports = {
 - `development`: 개발 모드
 - `production`: 배포 모드 (default)
 
+<br/>
+
 ### 실행 모드에 따라 웹팩 설정 달리 하기
 
 웹팩으로 개발 시 보통 2가지 경우로 나누어 작업한다.
 
 - 개발할 때 사용할 웹팩 설정
 - 배포할 때 사용할 웹팩 설정
-
-먼저 웹팩 설정 파일이 **한 개**일 때의 방법은 아래와 같다.
 
 ```javascript
 // webpack.config.js
@@ -114,6 +110,7 @@ module.exports = (env) => {
 
 ```json
 // package.json
+
 {
   "build": "webpack",
   "development": "npm run build -- --env.mode=development",
@@ -140,15 +137,17 @@ webpack --env.a=10
 여러 개의 웹팩 설정 파일을 하나로 병합해 준다. (보통 개발용과 배포용으로 나누어 설정하기 때문)  
 앞서 있던 예시처럼 실행 모드에 따라 조건문으로 작성할 수도 있지만, 파일을 분리하는 방식을 권장한다.
 
+<br/>
+
 ### 웹팩 설정 파일 구분 전략
 
-파일 분리 전, 개발용과 배포용 설정 파일에서 공통으로 쓰이는 부분을 먼저 분리한다. 보통 아래와 같은 방식으로 구분한다!
+파일 분리 전, 개발용과 배포용 설정 파일에서 공통으로 쓰이는 부분을 먼저 분리한다.
 
 - webpack.common.js
 - webpack.dev.js
 - webpack.prod.js
 
-**webpack.common.js**
+**🍒 webpack.common.js**  
 공통 설정 파일에는 `entry`, `output`, `plugins` 같이 실행 모드에 관계 없이 항상 들어가는 코드를 추가한다.
 
 ```javascript
@@ -164,7 +163,7 @@ module.exports = {
 
 <br/>
 
-**webpack.dev.js**  
+**🍒 webpack.dev.js**  
 개발용 설정 파일에는 개발자 도구나 웹팩 데브 서버 설정을 추가한다. 또한 `webpack-merge` 라이브러리 설치 후 `webpack.common.js` 파일을 로딩하여 병합한다.
 
 ```javascript
@@ -181,8 +180,8 @@ module.exports = merge(common, {
 
 <br/>
 
-**webpack.prod.js**  
-배포 전 웹 리소스 최적화를 위한 설정을 추가한다.ㄴ
+**🍒 webpack.prod.js**  
+배포 전 웹 리소스 최적화를 위한 설정을 추가한다.
 
 ```javascript
 // webpack.prod.js
