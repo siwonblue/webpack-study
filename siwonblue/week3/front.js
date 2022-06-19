@@ -1,18 +1,7 @@
-const fetchData = async () => {
-  // index.html 이 로드되면 백엔드 서버로 직접 요청을 보냄.
-  try {
-    const result = await fetch("http://localhost:3065/api/test", {
-      message: "proxy server test",
-    });
-    const data = result.json();
-    console.log(data);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 const testData = async () => {
   try {
+    // 프록시 설정 하지 않으면 url 을 "http://localhost:3065/api" 라고 적음.
+    // 프록시 설정을 하게 되면 url 을 아래처럼 적음 ( devServer config 에 맞춰서 적는다는 의미)
     const result = await fetch("/api");
     const data = result.text();
     console.log(data);

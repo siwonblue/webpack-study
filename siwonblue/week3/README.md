@@ -28,8 +28,7 @@ plugin 은 결과물을 어떤 방식으로 이용할지에 대한 설정을 한
 
 ### 생산성 저하
 코드가 바뀌고 나면 매번 빌드 명령어를 이용해서 수동으로 변경 사항을 업데이트 해야 하는데
-이 점은 생산성을 떨어트린다.
-
+이 점은 생산성을 떨어트린다.그래서 웹팩 데브 서버의 핫 리로딩 기능을 이용하여 이를 해결한다.
 ### CORS 
 
 Cross Origin Resource Sharing, 한글로 교차 자원 공유 문제는 브라우저와 백엔드 서버가
@@ -76,6 +75,9 @@ origin이 달라서 CORS 가 발생한다.
 생산성 저하와 CORS 문제 해결을 위하여 웹팩을 이용해서
 데브 서버를 세팅한다.
 
+- 생산성 저하 : 핫 리로딩
+- CORS 오류 : 프록시 서버
+
 
 ## 실습
 
@@ -94,7 +96,7 @@ $npm i webpack webpack-cli webpack-dev-server html-webpack-plugin -D
 ```
 
 
-### 동작 방식
+### 구조
 - webpack.config.js 에서 설정파일에 대한 내용을 확인
 - front.js 에서 브라우저와 프론트 서버에 대한 실습 예제 작성
 - server.js 에서 백엔드 서버에 대한 실습 예제 작성
@@ -110,8 +112,9 @@ $npm i webpack webpack-cli webpack-dev-server html-webpack-plugin -D
 ### 프록시 및 핫 리로딩 확인
 
 request header를 확인해보자.
-Host 는 요청을 받는 곳을 의미하고 Origin 은 요청을 보내는 곳의 origin 을 의미한다.
-Referer 는 Origin 에서 실제 요청을 보내는 경로를 의미한다.
+- Host   :  는 요청을 받는 곳을, 
+- Origin : 은 요청을 보내는 곳의 origin, 
+- Referer : 는 Origin 에서 실제 요청을 보내는 경로를 의미한다.
 
 1. 프록시 설정을 하지 않은 경우
     
@@ -124,7 +127,7 @@ Referer 는 Origin 에서 실제 요청을 보내는 경로를 의미한다.
 2. 프록시 설정을 한 경우
 
 - Host 가 3060 로 설정되어 있음
-- Referer 를 보면 3060 으로 설정되어 있어서 프록시가 제대로 설정된 것 확인 가능
+- Referer 를 보면 3060 으로 설정되어 있어서 프록시가 제대로 설정되어 CORS 오류 없음.
 
 ![img.png](public/img_4.png)
 
