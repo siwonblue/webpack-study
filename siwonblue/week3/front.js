@@ -13,7 +13,7 @@ const fetchData = async () => {
 
 const testData = async () => {
   try {
-    const result = await fetch("http://localhost:3065/api");
+    const result = await fetch("/api");
     const data = result.text();
     console.log(data);
   } catch (err) {
@@ -24,3 +24,5 @@ const testData = async () => {
 // fetchData().then((r) => null);
 
 testData().then((r) => null);
+
+document.querySelector(".container").innerHTML = "JS aa is connected ";

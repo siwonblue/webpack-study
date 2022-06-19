@@ -15,7 +15,7 @@
   \******************/
 /***/ (() => {
 
-eval("const fetchData = async () => {\n  // index.html 이 로드되면 백엔드 서버로 직접 요청을 보냄.\n  try {\n    const result = await fetch(\"http://localhost:3065/api/test\", {\n      message: \"proxy server test\",\n    });\n    const data = result.json();\n    console.log(data);\n  } catch (err) {\n    console.error(err);\n  }\n};\n\nconst testData = async () => {\n  try {\n    const result = await fetch(\"http://localhost:3065/api\");\n    const data = result.text();\n    console.log(data);\n  } catch (err) {\n    console.error(err);\n  }\n};\n\n// fetchData().then((r) => null);\n\ntestData().then((r) => null);\n\n\n//# sourceURL=webpack:///./front.js?");
+eval("const fetchData = async () => {\n  // index.html 이 로드되면 백엔드 서버로 직접 요청을 보냄.\n  try {\n    const result = await fetch(\"http://localhost:3065/api/test\", {\n      message: \"proxy server test\",\n    });\n    const data = result.json();\n    console.log(data);\n  } catch (err) {\n    console.error(err);\n  }\n};\n\nconst testData = async () => {\n  try {\n    const result = await fetch(\"http://localhost:3065/api\");\n    const data = result.text();\n    console.log(data);\n  } catch (err) {\n    console.error(err);\n  }\n};\n\n// fetchData().then((r) => null);\n\ntestData().then((r) => null);\n\ndocument.querySelector(\".container\").innerHTML = \"JS aa is connected \";\n\n\n//# sourceURL=webpack:///./front.js?");
 
 /***/ })
 

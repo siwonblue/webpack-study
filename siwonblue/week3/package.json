@@ -2,9 +2,10 @@
   "scripts": {
     "build": "webpack",
     "dev": "nodemon server.js",
-    "start": "webpack serve --open --mode=development --hot"
+    "start": "webpack serve --open"
   },
   "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.7.1",

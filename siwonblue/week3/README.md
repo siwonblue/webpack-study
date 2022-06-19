@@ -79,37 +79,54 @@ origin이 달라서 CORS 가 발생한다.
 
 ## 실습
 
+### 세팅
+
+```bash
+$npm i webpack webpack-cli webpack-dev-server html-webpack-plugin -D
+```
+
+```json
+{
+  "scripts" : {
+    "dev" : "webpack serve"
+  }
+}
+```
+
+
 ### 동작 방식
 - webpack.config.js 에서 설정파일에 대한 내용을 확인
 - front.js 에서 브라우저와 프론트 서버에 대한 실습 예제 작성
 - server.js 에서 백엔드 서버에 대한 실습 예제 작성
 
 ### 코드 설명
-- 웹스톰 라이브 서버로 브라우저는 http://localhost:63322 origin 사용
-- 프론트 서버는 브라우저와 동일
-- 브라우저에서 index.html 이 로드 되면 server.js 에서 fetch 실행
+- 데브서버는 3060 포트에서 실행
+- 브라우저에서 index.html 이 로드 되면 front.js 에서 fetch 실행
 - origin 이 다른 백엔드 서버(server.js) 로 요청을 보내게 되어 있음.
 - 하지만 프록시 설정이 되어 있기 때문에 이 요청은 바로 백엔드 서버로 전송되지 않고
 - 프론트 프록시 서버를 경유하게 됨.
 - CORS 오류 발생하지 않고 정상 통신
 
+### 프록시 및 핫 리로딩 확인
 
-### webpack.config.js
-- webpack.config.js 파일은 객체를 export
-- 객체에 대한 property 로 모든 설정을 하게 됨.
-- devServer 라는 property 위 언급한 문제를 모두 해결 가능.
-  
-```js
-module.exports = {
-  
-  devServer : {
-    proxy : {
-      
-    },
+request header를 확인해보자.
+Host 는 요청을 받는 곳을 의미하고 Origin 은 요청을 보내는 곳의 origin 을 의미한다.
+Referer 는 Origin 에서 실제 요청을 보내는 경로를 의미한다.
+
+1. 프록시 설정을 하지 않은 경우
     
-  }
-  
-}
-```
+- Host 가 백엔드 서버로 설정되어 있음
+- Origin 을 보면 3060 으로 설정되어 있어서 CORS 가 발생
 
-### 하는 중...
+![img.png](public/img_3.png)
+
+
+2. 프록시 설정을 한 경우
+
+- Host 가 3060 로 설정되어 있음
+- Referer 를 보면 3060 으로 설정되어 있어서 프록시가 제대로 설정된 것 확인 가능
+
+![img.png](public/img_4.png)
+
+
+
